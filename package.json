@@ -9,9 +9,7 @@
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "preview": "cross-env NODE_ENV=production node server",
-    "prod": "pm2 start dist/server/entry-server.js",
-    "prod:restart": "pm2 restart dist/server/entry-server.js",
-    "prod:stop": "pm2 stop dist/server/entry-server.js"
+    "prod": "cross-env NODE_ENV=production pm2 start server"
   },
   "dependencies": {
     "compression": "^1.7.4",
