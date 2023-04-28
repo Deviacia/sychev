@@ -6,7 +6,7 @@ const Navbar = () => {
     const routes = [
         { href: '/', name: 'Home' },
         // { href: '/portfolio', name: 'Portfolio' },
-        { href: '/contact', name: 'Contact' }
+        // { href: '/contact', name: 'Contact' }
     ];
 
     return (
