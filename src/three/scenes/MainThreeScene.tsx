@@ -1,15 +1,18 @@
-import { useRef, useEffect } from 'react';
+import styles from './MainThreeScene.module.css';
 import * as THREE from 'three';
+import { useRef, useEffect, useState } from 'react';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import pepe_lod1 from '../objects/pepe_lod0.glb';
+import Navbar from '../../components/Navbar/Navbar';
 
 const MainThreeScene = () => {
-    const ref = useRef<HTMLDivElement>(null);
-    // const cursorRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const cursorRef = useRef<HTMLDivElement>(null);
+    const [onLink, setOnLink] = useState(false);
 
     useEffect(() => {
-        const container = ref.current;
-        // const cursor = cursorRef.current;
+        const container = containerRef.current;
+        const cursor = cursorRef.current;
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
@@ -28,6 +31,7 @@ const MainThreeScene = () => {
         const windowHalfX = window.innerWidth / 2;
         const windowHalfY = window.innerHeight / 2;
         let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)
+        let mouseIn = true;
 
         init();
         animate();
@@ -61,6 +65,7 @@ const MainThreeScene = () => {
             directionalLight2.position.z = 0;
             scene.add(directionalLight2);
 
+
             // Renderer
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -80,6 +85,9 @@ const MainThreeScene = () => {
             }
 
             window.addEventListener('resize', onWindowResize);
+            window.addEventListener('scroll', onDocumentScroll);
+            container?.addEventListener('mouseleave', onMouseLeave);
+            container?.addEventListener('mouseenter', onMouseEnter);
         };
 
         function onWindowResize() {
@@ -92,17 +100,45 @@ const MainThreeScene = () => {
         function onDocumentTouchMove(event: TouchEvent) {
             fingerX = (event.targetTouches[0].clientX - windowHalfX);
             fingerY = (event.targetTouches[0].clientY - windowHalfY);
-        }
+        };
 
         function onDocumentMouseMove(event: MouseEvent) {
             mouseX = (event.clientX - windowHalfX);
             mouseY = (event.clientY - windowHalfY);
 
-            // let x = event.clientX;
-            // let y = event.clientY + window.scrollY;
+            let x = event.clientX;
+            let y = event.clientY + window.scrollY;
 
-            // cursor!.style.left = x + "px";
-            // cursor!.style.top = y + "px";
+            cursor!.style.left = x + "px";
+            cursor!.style.top = y + "px";
+        };
+
+        function onDocumentScroll(event: Event) {
+            if (event) {
+                cursor!.style.opacity = '0';
+            }
+
+            if (!mouseIn) {
+                cursor!.style.opacity = '0';
+            } else {
+                setTimeout(() => {
+                    cursor!.style.opacity = '1';
+                }, 1000)
+            }
+        };
+
+        function onMouseLeave(event: MouseEvent) {
+            if (event) {
+                cursor!.style.opacity = '0';
+                mouseIn = false;
+            }
+        }
+
+        function onMouseEnter(event: MouseEvent) {
+            if (event) {
+                cursor!.style.opacity = '1';
+                mouseIn = true;
+            }
         }
 
         function createScene(geometry: GLTF) {
@@ -118,7 +154,7 @@ const MainThreeScene = () => {
             }
 
             scene.add(mesh);
-        }
+        };
 
         function animate() {
             requestAnimationFrame(animate);
@@ -139,17 +175,17 @@ const MainThreeScene = () => {
                     mesh.rotation.y += 0.05 * (targetX - mesh.rotation.y);
                     mesh.rotation.x += 0.05 * (targetY - mesh.rotation.x);
                 }
-            }
+            };
 
             renderer.render(scene, camera);
         };
     }, []);
 
     return (
-        <>
-            <div ref={ref} />
-            {/* <div ref={cursorRef} className="cursor" /> */}
-        </>
+        <div ref={containerRef} className={styles.wrapper}>
+            <Navbar />
+            <div ref={cursorRef} className={styles.cursor} />
+        </div>
     )
 }
 

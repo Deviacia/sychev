@@ -7,10 +7,9 @@ const Home = () => {
     return (
         <>
             <header className={styles.header}>
-                <Navbar />
                 <MainThreeScene />
             </header>
-            <main className={styles.main}></main>
+            {/* <main className={styles.main}></main> */}
         </>
     )
 }

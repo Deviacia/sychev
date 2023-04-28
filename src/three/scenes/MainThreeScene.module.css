@@ -1,0 +1,25 @@
+.wrapper {
+    position: relative;
+}
+
+.cursor {
+    cursor: none;
+    pointer-events: none;
+    box-sizing: border-box;
+
+    height: 2.4rem;
+    width: 2.4rem;
+
+    position: absolute;
+    z-index: 999;
+    border: 2px solid #fff;
+    border-radius: 50%;
+
+    transition: opacity .195s linear;
+    transform: translate(-50%, -50%);
+}
+
+.cursor .cursor_target {
+    height: 3.2rem;
+    width: 3.2rem;
+}

@@ -6,9 +6,7 @@ import Root from './routes';
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
-  <React.StrictMode>
     <BrowserRouter>
       <Root />
     </BrowserRouter>
-  </React.StrictMode>
 )

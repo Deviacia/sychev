@@ -1,4 +1,3 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Navbar.module.css'
 
@@ -9,11 +8,17 @@ const Navbar = () => {
         // { href: '/contact', name: 'Contact' }
     ];
 
+    const socials = [
+        { href: 'https://www.linkedin.com/in/deviacia/', name: 'LinkedIn' },
+        { href: 'https://github.com/Deviacia', name: 'Github' },
+        { href: 'https://www.behance.net/deviacia', name: 'Behance' },
+    ]
+
     return (
         <nav className={styles.nav}>
             <ul className={styles.list}>
                 {routes.map((route, index) => (
-                    <li key={index}>
+                    <li key={index} className={styles.item}>
                         <NavLink
                             to={route.href}
                             className={styles.link}
@@ -25,9 +30,17 @@ const Navbar = () => {
             </ul>
 
             <ul className={styles.list}>
-                <li><a className={styles.link} href="https://www.linkedin.com/in/deviacia/">LinkedIn</a></li>
-                <li><a className={styles.link} href="https://github.com/Deviacia">Github</a></li>
-                <li><a className={styles.link} href="https://www.behance.net/deviacia">Behance</a></li>
+                {socials.map((social, index) => (
+                    <li key={index}>
+                        <a
+                            className={styles.link}
+                            href={social.href}
+                            target="_blank"
+                        >
+                            {social.name}
+                        </a>
+                    </li>
+                ))}
             </ul>
         </nav>
     )
