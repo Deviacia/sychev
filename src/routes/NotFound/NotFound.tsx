@@ -1,14 +1,13 @@
-import { useNavigate } from "react-router-dom"
+import Container from "../../components/Container/Container";
+import NotFound from '../../components/NotFound/NotFound';
+import styles from './NotFound.module.css';
 
-const NotFound = () => {
-    const navigate = useNavigate();
-
+const NotFoundPage = () => {
     return (
-        <div>
-            <h1>NotFound</h1>
-            <button onClick={() => navigate('/', { replace: true })}>Back</button>
-        </div>
+        <Container className={styles.page}>
+            <NotFound />
+        </Container>
     )
 }
 
-export default NotFound
+export default NotFoundPage

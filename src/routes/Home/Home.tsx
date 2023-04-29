@@ -2,7 +2,7 @@ import styles from './Home.module.css';
 import MainThreeScene from '../../three/scenes/MainThreeScene';
 import Navbar from '../../components/Navbar/Navbar';
 
-const Home = () => {
+const HomePage = () => {
 
     return (
         <>
@@ -14,4 +14,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomePage
